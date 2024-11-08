@@ -26,7 +26,7 @@ pushd firmware/mcu_ws > /dev/null
     # Import user defined packages
     mkdir extra_packages
     pushd extra_packages > /dev/null
-    	USER_CUSTOM_PACKAGES_DIR=$BASE_PATH/../../microros_component/extra_packages 
+    	USER_CUSTOM_PACKAGES_DIR=$BASE_PATH/../../microros_component/extra_packages
     	if [ -d "$USER_CUSTOM_PACKAGES_DIR" ]; then
     		cp -R $USER_CUSTOM_PACKAGES_DIR/* .
 		fi
@@ -37,31 +37,6 @@ pushd firmware/mcu_ws > /dev/null
         vcs import --input extra_packages.repos
     popd > /dev/null
 
-popd > /dev/null
-
-######## Trying to retrieve CFLAGS ########
-pushd /project > /dev/null
-export RET_CFLAGS=$(make print_cflags)
-RET_CODE=$?
-
-if [ $RET_CODE = "0" ]; then
-    echo "Found CFLAGS:"
-    echo "-------------"
-    echo $RET_CFLAGS
-    echo "-------------"
-    read -p "Do you want to continue with them? (y/n)" -n 1 -r
-    echo
-    if [[ $REPLY =~ ^[Yy]$ ]]
-    then
-        echo "Continuing..."
-    else
-        echo "Aborting"
-        exit 0;
-    fi
-else
-    echo "Please read README.md to update your Makefile"
-    exit 1;
-fi
 popd > /dev/null
 
 ######## Build  ########
